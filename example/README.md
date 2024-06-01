@@ -8,7 +8,7 @@
 
 ## full tutorial
 
-assuming you've [set up your datapack](https://minecraft.fandom.com/wiki/Data_pack), create a new dimension file at
+assuming you've [set up your datapack](https://minecraft.wiki/w/Data_pack), create a new dimension file at
 `namespace/dimension/<name>.json`. like all datapacks, you can put your file in the `minecraft` namespace and overwrite
 the vanilla dimensions if you want.
 
