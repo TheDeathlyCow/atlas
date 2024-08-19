@@ -38,8 +38,8 @@ public class Atlas implements ModInitializer {
 
         BuiltinRegistries.REGISTRY_BUILDER.addRegistry(ATLAS_INFO, AtlasMapInfo::bootstrap);
 
-        Registry.register(Registries.CHUNK_GENERATOR, id("atlas"), AtlasChunkGenerator.CODEC);
-        Registry.register(Registries.BIOME_SOURCE, id("atlas"), AtlasBiomeSource.CODEC);
+        Registry.register(Registries.CHUNK_GENERATOR, id(MOD_ID), AtlasChunkGenerator.CODEC);
+        Registry.register(Registries.BIOME_SOURCE, id(MOD_ID), AtlasBiomeSource.CODEC);
         AtlasPredicates.register();
     }
 
