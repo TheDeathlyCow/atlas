@@ -6,15 +6,17 @@ import com.miir.atlas.world.gen.NamespacedMapImage;
 import com.miir.atlas.world.gen.biome.source.AtlasBiomeSource;
 import com.miir.atlas.world.gen.chunk.AtlasChunkGenerator;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.registry.*;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
+import net.minecraft.registry.BuiltinRegistries;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Atlas implements ModInitializer {
@@ -32,10 +34,7 @@ public class Atlas implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        List<RegistryLoader.Entry<?>> list = new ArrayList<>(RegistryLoader.DYNAMIC_REGISTRIES);
-        list.add(new RegistryLoader.Entry<>(ATLAS_INFO, AtlasMapInfo.CODEC, false));
-        RegistryLoader.DYNAMIC_REGISTRIES = list;
-
+        DynamicRegistries.register(ATLAS_INFO, AtlasMapInfo.CODEC);
         BuiltinRegistries.REGISTRY_BUILDER.addRegistry(ATLAS_INFO, AtlasMapInfo::bootstrap);
 
         Registry.register(Registries.CHUNK_GENERATOR, id(MOD_ID), AtlasChunkGenerator.CODEC);
