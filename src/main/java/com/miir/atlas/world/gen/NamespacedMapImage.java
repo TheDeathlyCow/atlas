@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
+import java.awt.image.Raster;
 
 public class NamespacedMapImage {
 
@@ -116,9 +117,11 @@ public class NamespacedMapImage {
     }
 
     private void populateGrayscale(BufferedImage image, int x0, int z0, int x1, int z1) {
+        Raster raster = image.getRaster();
         for (int x = x0; x < x1; x++) {
             for (int y = z0; y < z1; y++) {
-                this.pixels[y][x] = 0xFF & image.getRGB(x, y);
+                int value = raster.getSample(x, y, 0);
+                this.pixels[y][x] = value;
             }
         }
     }
@@ -132,16 +135,16 @@ public class NamespacedMapImage {
     }
 
     private void populateGrayscale(BufferedImage image) {
-        int[] data = new int[this.width * this.height];
-        image.getRGB(0, 0, width, height, data, 0, width);
-        int x = 0;
-        int y = 0;
-        for (int datum : data) {
-            if (x >= width) {
-                x = 0;
-                y++;
+        final int width = image.getWidth();
+        final int height = image.getHeight();
+        this.pixels = new int[height][width];
+        Raster raster = image.getRaster();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int value = raster.getSample(x, y, 0);
+                this.pixels[y][x] = value;
             }
-            this.pixels[y][x++] = datum & 0xFF;
         }
     }
 
