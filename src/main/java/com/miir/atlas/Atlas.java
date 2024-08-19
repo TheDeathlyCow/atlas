@@ -24,7 +24,7 @@ public class Atlas implements ModInitializer {
     public static HashMap<Identifier, NamespacedMapImage> GRAYSCALE_MAPS = new HashMap<>();
     public static HashMap<Identifier, NamespacedMapImage> COLOR_MAPS = new HashMap<>();
     public static Identifier id(String path) {
-        return new Identifier(MOD_ID, path);
+        return Identifier.of(MOD_ID, path);
     }
     @Override
     public void onInitialize() {
