@@ -19,7 +19,6 @@ accessible field  net/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialR
 
 #dynamic registry
 accessible field  net/minecraft/registry/BuiltinRegistries REGISTRY_BUILDER Lnet/minecraft/registry/RegistryBuilder;
-mutable    field  net/minecraft/registry/RegistryLoader    DYNAMIC_REGISTRIES Ljava/util/List;
 
 #surface rule AMI stuff
 accessible method net/minecraft/world/gen/surfacebuilder/MaterialRules$BlockStateRule tryApply (III)Lnet/minecraft/block/BlockState;

@@ -29,14 +29,14 @@ public class BiomeEntryPriorityCodec extends RegistryElementCodec<Biome> {
     @Override
     public <T> DataResult<Pair<RegistryEntry<Biome>, T>> decode(DynamicOps<T> ops, T input) {
         RegistryElementCodecAccessor<Biome> accessor = (RegistryElementCodecAccessor<Biome>) this;
-        if (ops instanceof RegistryOps registryOps) {
+        if (ops instanceof RegistryOps<?> registryOps) {
             Optional<RegistryEntryLookup<Biome>> optional = registryOps.getEntryLookup(accessor.getRegistryRef());
             if (optional.isEmpty()) {
                 return DataResult.error(() -> ("Registry does not exist: " + accessor.getRegistryRef()));
             }
             RegistryEntryLookup<Biome> registryEntryLookup = optional.get();
             DataResult<Pair<Identifier, T>> dataResult = Identifier.CODEC.decode(ops, input);
-            Pair<Identifier, T> pair2 = dataResult.getOrThrow(false, s -> { throw new IllegalStateException(s); });
+            Pair<Identifier, T> pair2 = dataResult.getOrThrow(IllegalStateException::new);
             RegistryKey<Biome> registryKey = RegistryKey.of(accessor.getRegistryRef(), pair2.getFirst());
             Optional<RegistryEntry.Reference<Biome>> result = registryEntryLookup.getOptional(registryKey);
             return DataResult.success(result.orElse(getEmpty(accessor, registryEntryLookup))).map(reference -> Pair.of(reference, pair2.getSecond()));
